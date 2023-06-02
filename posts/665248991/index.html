@@ -9,7 +9,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            标签
+            面试总结
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -32,15 +32,36 @@
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/page.css">
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
 <div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-subtitle">标签</h1>
+                <h1 class="header-subtitle">面试总结</h1>
                 <div class="header-subinfo">
-                    <p class="article-info-text Chinese"></p>
-                    <p class="article-info-text English"></p>                  
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2023-06-02
+                        </span>
+                        
+                            
+                                <span id="/posts/665248991/" class="leancloud_visitors" data-flag-title="面试总结">
+                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                                </span>
+                            
+                            
+                                <span>
+                                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/665248991/"></span>
+                                </span>
+                              
+                        
+                    </p>
+                    
+                    
+                        
+                            <span class="tag-color">面经</span>
+                        
+                    
                 </div>
             
         </div>
@@ -49,22 +70,116 @@
 </div>
 <div id="container">
     
-        <!-- 独立页面 -->
-        
-            <div class="tags">
-                <div class="tags-title">
-                    目前共计 3 个标签
-                </div>
-                <div class="tags-content">
-                    <div class="tags-light">
-                        <a href="/tag/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 12px; color: #ccc">学习笔记</a> <a href="/tag/%E6%BA%90%E7%A0%81/" style="font-size: 25px; color: #111">源码</a> <a href="/tag/%E9%9D%A2%E7%BB%8F/" style="font-size: 12px; color: #ccc">面经</a>
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <h1 id="面试总结"><a href="#面试总结" class="headerlink" title="面试总结"></a>面试总结</h1><h2 id="Java篇"><a href="#Java篇" class="headerlink" title="Java篇"></a>Java篇</h2><h3 id="Map和HashMap的区别"><a href="#Map和HashMap的区别" class="headerlink" title="Map和HashMap的区别"></a>Map和HashMap的区别</h3><p><code>Map</code> 和 <code>HashMap</code> 都是 Java 中用于存储键值对的数据结构。它们之间的主要区别在于：</p>
+<ul>
+<li>实现方式：<code>Map</code> 是一个接口，定义了一些方法来管理键值对。而 <code>HashMap</code> 则是 <code>Map</code> 接口的实现类之一，使用基于哈希算法实现。</li>
+<li>线程安全性：<code>HashMap</code> 不是线程安全的。如果多个线程同时访问 <code>HashMap</code>，可能会导致数据不一致。另一方面，Java 提供了一些线程安全的 <code>Map</code> 实现，例如 <code>ConcurrentHashMap</code>。</li>
+<li>插入顺序：<code>HashMap</code> 不保证插入顺序，即使在 JDK8 中 <code>HashMap</code> 也不是有序的。如果需要有序的键值对集合，可以使用 <code>LinkedHashMap</code>。</li>
+<li>null 值：<code>HashMap</code> 允许将键和值设置为 null，而 <code>Hashtable</code> 则不允许。</li>
+</ul>
+<h3 id="简述-java-垃圾回收机制"><a href="#简述-java-垃圾回收机制" class="headerlink" title="简述 java 垃圾回收机制"></a><strong>简述</strong> <strong>java</strong> 垃圾回收机制</h3><p>Java中的垃圾回收机制是自动的内存管理系统，可以自动检测和释放程序运行过程中不再使用的内存空间，避免了手动内存管理带来的困难。其主要思想是通过垃圾回收器扫描堆内存中的对象，判断哪些对象没有被引用，然后将这些对象所占用的内存空间释放出来，以供其他对象使用。</p>
+<p>Java中的垃圾回收机制主要由以下组件构成：</p>
+<ol>
+<li>垃圾回收器（Garbage Collector）：负责监视程序中的对象，并在它们变成“垃圾”时将其回收释放内存空间。</li>
+<li>引用计数器（Reference Counter）：记录每个对象被引用的次数，当对象的引用计数为0时，该对象被标记为垃圾并由垃圾回收器回收。</li>
+<li>可达性分析算法（Reachability Analysis）：是Java中最广泛应用的垃圾收集算法，它通过从根集（如全局变量、静态变量等）开始遍历程序的对象图，标记出所有活跃的对象，并且在标记完成之后将未被标记的对象回收。</li>
+<li>内存分代模型（Memory Generational Model）：将堆内存分为不同的代，并对不同代使用不同的垃圾回收算法和频率，以此提高垃圾回收的效率。</li>
+<li>终结器（Finalizer）：在对象被垃圾回收前可以自动执行一些清理操作，例如关闭文件、释放系统资源等。</li>
+</ol>
+<p>总体来说，Java中的垃圾回收机制使得程序员可以专注于业务逻辑而无需关注内存管理问题，提高了程序的开发效率和可靠性。但是，过度依赖垃圾回收机制也会导致内存泄漏和性能问题，所以在实际编程中仍需要注意内存管理的问题。</p>
+<h3 id="java中垃圾收集的方法有哪些"><a href="#java中垃圾收集的方法有哪些" class="headerlink" title="java中垃圾收集的方法有哪些?"></a>java中垃圾收集的方法有哪些?</h3><ol>
+<li>标记-清除算法（Mark-and-Sweep）：该算法分为两个阶段。第一阶段，从根节点开始遍历对象图，在已经遍历的对象上打上标记；第二阶段，遍历整个堆空间，如果发现对象没有被标记，则将其释放掉，否则清除标记。这种方法会导致内存碎片问题。</li>
+<li>复制算法（Copying）：该算法将堆空间划分为两个区域，每次只使用一个区域，在进行垃圾回收时，将存活的对象复制到另一个区域，然后将原区域中的所有对象一次性清除掉。这种方法不会出现内存碎片问题。</li>
+<li>标记-整理算法（Mark-and-Compact）：该算法类似于标记-清除算法，但是在清除未标记对象的同时，还会将存活的对象往一端移动，然后清除边界以外的对象。这种方法也不会出现内存碎片问题。</li>
+</ol>
+<p>在实际应用中，Java 虚拟机可以选择不同的垃圾回收算法和策略，以满足特定的需求。例如，早期版本的 Hotspot JVM 使用的是分代收集算法，将堆空间分为新生代和老年代，并分别使用不同的垃圾回收器来处理不同代的对象。而在较新的版本中，Hotspot JVM 还引入了 G1 垃圾回收器，它基于分代收集算法和复制算法，在避免内存碎片的同时提供了更好的吞吐量和延迟性能。</p>
+<h2 id="Linux篇"><a href="#Linux篇" class="headerlink" title="Linux篇"></a>Linux篇</h2><p>Linux 常用命令：</p>
+<ol>
+<li>cd：切换当前目录</li>
+<li>ls：列出文件和目录</li>
+<li>pwd：显示当前工作目录的路径</li>
+<li>mkdir：创建新目录</li>
+<li>rmdir：删除空目录</li>
+<li>touch：创建空文件或修改时间戳</li>
+<li>cp：复制文件或目录</li>
+<li>mv：移动或重命名文件或目录</li>
+<li>rm：删除文件或目录</li>
+<li>cat：显示文件内容</li>
+<li>grep：在文本中查找指定字符串</li>
+<li>find：查找指定文件</li>
+<li>tar：压缩和解压缩文件</li>
+<li>chmod：更改文件权限</li>
+<li>chown：更改文件所有者</li>
+<li>ps：显示正在运行的进程</li>
+<li>top：显示系统资源使用情况</li>
+<li>netstat：显示网络连接状态</li>
+<li>ping：测试网络连接</li>
+<li>ssh：远程登录到另一台计算机</li>
+</ol>
+<h1 id="MySQL篇"><a href="#MySQL篇" class="headerlink" title="MySQL篇"></a>MySQL篇</h1><h2 id="索引语法"><a href="#索引语法" class="headerlink" title="索引语法"></a><strong>索引语法</strong></h2><h3 id="1-创建索引"><a href="#1-创建索引" class="headerlink" title="1). 创建索引"></a>1). 创建索引</h3><h4 id="CREATE-UNIQUE-FULLTEXT-INDEX-index-name-ON-table-name-index-col-name-…"><a href="#CREATE-UNIQUE-FULLTEXT-INDEX-index-name-ON-table-name-index-col-name-…" class="headerlink" title="CREATE [ UNIQUE | FULLTEXT ]  INDEX  index_name ON table_name (index_col_name,… ) ;"></a>CREATE [ UNIQUE | FULLTEXT ]  INDEX  index_name ON table_name (index_col_name,… ) ;</h4><h3 id="2-查看索引"><a href="#2-查看索引" class="headerlink" title="2). 查看索引"></a>2). 查看索引</h3><h4 id="SHOW-INDEX-FROM-table-name"><a href="#SHOW-INDEX-FROM-table-name" class="headerlink" title="SHOW INDEX FROM table_name ;"></a>SHOW INDEX FROM table_name ;</h4><h3 id="3-删除索引"><a href="#3-删除索引" class="headerlink" title="3). 删除索引"></a>3). 删除索引</h3><h4 id="DROP-INDEX-index-name-ON-table-name"><a href="#DROP-INDEX-index-name-ON-table-name" class="headerlink" title="DROP INDEX index_name ON table_name ;"></a>DROP INDEX index_name ON table_name ;</h4><h2 id="使用索引的优势"><a href="#使用索引的优势" class="headerlink" title="使用索引的优势"></a>使用索引的优势</h2><p>使用索引可以提高数据查询的效率</p>
+<ol>
+<li>快速定位数据：索引可以帮助数据库快速定位需要查询的数据，避免了全表扫描的低效性能。通过创建最适合特定查询条件的索引，可以使数据库在大型数据集上处理查询时以更快的速度返回结果。</li>
+<li>加速排序：当查询结果需要根据某个字段进行排序时，索引可以加快排序的速度，减少查询时间。</li>
+<li>提高并发性能：索引能够降低锁的竞争，提高并发性能。如果没有索引，需要对整个表进行锁定，这会导致其他查询阻塞。</li>
+<li>减少IO操作：索引可以减少磁盘IO操作，因为不再需要访问整个表来查找满足查询条件的记录。相反，只需要访问索引所指向的数据块即可。</li>
+<li>优化查询计划：数据库通过索引来选择使用哪种查询计划，以优化查询性能。如果没有索引，查询计划可能不是最优的，导致查询效率低下。</li>
+</ol>
+<p>总之，索引可以极大地提高数据库的查询效率和性能，尤其是在大型数据集和高并发场景下，索引的优势更加明显。但是，过多的索引也会对数据库性能产生负面影响，因为索引需要占用存储空间和额外的维护成本。所以，在创建索引时需要根据实际情况进行权衡和选择。	 </p>
+
+                
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/avatar.jpg" alt="潘的热苏打">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>潘的热苏打
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/665248991/" target="_blank">面试总结</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                
+                    <div class="tag">
+                        标签：
+                        
+                            <a href="/tag/%E9%9D%A2%E7%BB%8F/">面经</a>
+                        
                     </div>
-                    <div class="tags-dark">
-                        <a href="/tag/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 12px; color: #666">学习笔记</a> <a href="/tag/%E6%BA%90%E7%A0%81/" style="font-size: 25px; color: #eee">源码</a> <a href="/tag/%E9%9D%A2%E7%BB%8F/" style="font-size: 12px; color: #666">面经</a>
-                    </div>
+                
+                <div class="article-prev-next">
+                    
+                    
+                        <a href="/posts/3135569683/" class="next-prefix">» </a> 下一篇：    <a href="/posts/3135569683/" title="发布于 2023-06-02 09:34">Redis</a>
+                    
                 </div>
             </div>
+            
+    <div class="article-comments">
         
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+    
+ 
+        </div>
     
 </div>
     <div id="footer">
@@ -96,7 +211,7 @@
                     
                         <li class=""><a href="/category" class="" target="_self"><span class="iconfont icon-folder-fill"></span>分类</a></li>
                     
-                        <li class=" active "><a href="/tag" class="" target="_self"><span class="iconfont icon-discount-fill"></span>标签</a></li>
+                        <li class=""><a href="/tag" class="" target="_self"><span class="iconfont icon-discount-fill"></span>标签</a></li>
                     
                         <li class=""><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
                     
