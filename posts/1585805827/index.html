@@ -9,7 +9,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp">
     <title>
         
-            标签 - 学习笔记
+            MongoDB命令
         
     </title>
     <link rel="shortcut icon" href="#"/>
@@ -32,15 +32,36 @@
 <meta name="generator" content="Hexo 6.3.0"></head>
 <body>
     <a id="cover"></a>
-    <link type="text/css" rel="stylesheet" href="/css/archive.css">
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
 <div id="header" class="header">
     <div class="vertical">
         <div class="inner">
             
-                <h1 class="header-subtitle">标签归档</h1>
+                <h1 class="header-subtitle">MongoDB命令</h1>
                 <div class="header-subinfo">
-                    <p class="article-info-text Chinese"></p>
-                    <p class="article-info-text English"></p>                  
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2023-09-09
+                        </span>
+                        
+                            
+                                <span id="/posts/1585805827/" class="leancloud_visitors" data-flag-title="MongoDB命令">
+                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                                </span>
+                            
+                            
+                                <span>
+                                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/posts/1585805827/"></span>
+                                </span>
+                              
+                        
+                    </p>
+                    
+                    
+                        
+                            <span class="tag-color">学习笔记</span>
+                        
+                    
                 </div>
             
         </div>
@@ -49,67 +70,88 @@
 </div>
 <div id="container">
     
-        
-            <!-- 归档页面、分类归档页面、标签归档页面 -->
-            <div class="articles">
-                <div class="articles-wrap">
-                    <span class="archive-move-on"></span>
-                    <span class="archive-counter">
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><h3 id="启动MongoDB"><a href="#启动MongoDB" class="headerlink" title="启动MongoDB"></a>启动MongoDB</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/mongodb-4.0.3/bin/     切换到目录</span><br><span class="line">./mongo -port=27017                  指定端口启动服务</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="关闭MongoDB"><a href="#关闭MongoDB" class="headerlink" title="关闭MongoDB"></a>关闭MongoDB</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./mongod -f ../conf/mongod-27018.conf --shutdown</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="关于副本集"><a href="#关于副本集" class="headerlink" title="关于副本集"></a>关于副本集</h3><p>要想查看是否是主从一致 要注意一个问题 从节点是只读的状态</p>
+<p>要想show dbs  首先要打开一个开关 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rs.slaveok()</span><br></pre></td></tr></table></figure>
+
+<h3 id="MongoDB内存占用"><a href="#MongoDB内存占用" class="headerlink" title="MongoDB内存占用"></a>MongoDB内存占用</h3><h4 id="MongoDB内存使用过高的原因"><a href="#MongoDB内存使用过高的原因" class="headerlink" title="MongoDB内存使用过高的原因"></a>MongoDB内存使用过高的原因</h4><p>查询语句没有被优化、数据量过大、使用了默认的配置等。</p>
+<h4 id="调整MongoDB服务器配置"><a href="#调整MongoDB服务器配置" class="headerlink" title="调整MongoDB服务器配置"></a>调整MongoDB服务器配置</h4><h5 id="wiredTigerCacheSizeGB"><a href="#wiredTigerCacheSizeGB" class="headerlink" title="wiredTigerCacheSizeGB"></a>wiredTigerCacheSizeGB</h5><p>这个参数用于设置WiredTiger存储引擎使用的缓存大小，它的默认值为0。一般来说，可将其设置为系统内存的60%-80%。例如，如果服务器有8GB内存，可以将 wiredTigerCacheSizeGB 设置为5GB。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">编辑MongoDB配置文件</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo vi /etc/mongod.conf</span></span><br></pre></td></tr></table></figure>
+
+<p>在配置文件中找到 storage: 部分，并添加以下行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">storage:</span><br><span class="line">  wiredTiger:</span><br><span class="line">    engineConfig:</span><br><span class="line">      cacheSizeGB: 5</span><br></pre></td></tr></table></figure>
+
+<h3 id="解决MongoDB集群-no-master-主节点总挂问题"><a href="#解决MongoDB集群-no-master-主节点总挂问题" class="headerlink" title="解决MongoDB集群 no master 主节点总挂问题"></a>解决MongoDB集群 no master 主节点总挂问题</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">PRIMARY&gt; </span><span class="language-bash">config=rs.conf()</span></span><br><span class="line"><span class="meta prompt_">PRIMARY&gt;</span><span class="language-bash">config.members[0].priority = 3   设置它的权重</span></span><br><span class="line"><span class="meta prompt_">PRIMARY&gt; </span><span class="language-bash">rs.reconfig(config)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="导库命令"><a href="#导库命令" class="headerlink" title="导库命令"></a>导库命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./mongorestore -u ns-admin -p 2b8ba2ded188 --authenticationDatabase admin -d xian /root/ns-saas/</span><br><span class="line"></span><br><span class="line">./mongorestore -u ns-admin -p 2b8ba2ded188 -h 127.0.0.1:27017 --authenticationDatabase admin -d ns-saas /root/ns-saas</span><br></pre></td></tr></table></figure>
+
+<h3 id="MongoDB慢日志分析"><a href="#MongoDB慢日志分析" class="headerlink" title="MongoDB慢日志分析"></a>MongoDB慢日志分析</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use 库名</span><br><span class="line">db.setProfilingLevel(2)  </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">开启Profiling功能</span> </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">0 不开启 1 记录慢命令</span></span><br><span class="line">db.getProfilingLevel()</span><br><span class="line">db.system.profile.find(&#123;&quot;ns&quot;:/gongzibiao/&#125;,&#123;&quot;command.pipeline&quot;:1&#125;).sort(&#123;ts:-1&#125;).limit(1).pretty()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+                
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/avatar.jpg" alt="潘的热苏打">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>潘的热苏打
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/posts/1585805827/" target="_blank">MongoDB命令</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                
+                    <div class="tag">
+                        标签：
                         
-                            当前标签：<span class="tag">学习笔记</span>
+                            <a href="/tag/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
                         
-                    </span>
+                    </div>
+                
+                <div class="article-prev-next">
                     
                     
-                        
-                            <div class="archive-title">
-                                <h2 class="archive-year">2023</h2>
-                            </div>
-                            
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/1585805827/"><span>MongoDB命令</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">09-09</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/4159564061/"><span>Java基础</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">06-05</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/3135569683/"><span>Redis</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">06-02</span>
-                                </div>
-                            </div>
-                        </div>
-                    
-                           
-                        <div class="article">
-                            <div class="article-header">
-                                <h1 class="article-title"><a href="/posts/260783926/"><span>Java学习路线</span></a></h1>
-                                <div class="article-meta">
-                                    <span class="article-time">06-01</span>
-                                </div>
-                            </div>
-                        </div>
+                        <a href="/posts/1783788823/" class="next-prefix">» </a> 下一篇：    <a href="/posts/1783788823/" title="发布于 2023-09-09 05:21">微PE安装教程</a>
                     
                 </div>
             </div>
             
+    <div class="article-comments">
         
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+    
+ 
+        </div>
     
 </div>
     <div id="footer">
